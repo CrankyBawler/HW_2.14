@@ -45,6 +45,7 @@ public class StringListImplTest {
         String result = stringListImpl.add(1, item);
 
         assertEquals(item, result);
+
         String[] items = stringListImpl.getItems();
         assertEquals(3, items.length);
         assertEquals("Item1", items[0]);
@@ -54,5 +55,22 @@ public class StringListImplTest {
             stringListImpl.add(15, "TestItem");
         });
 
+    }
+
+    @Test
+    public void set() {
+        stringListImpl.add(0, "Item1");
+        stringListImpl.add(1, "Item2");
+        String item = "TestItem";
+        String result = stringListImpl.set(0, item);
+        assertEquals(item, result);
+
+        String[] items = stringListImpl.getItems();
+        assertEquals(2, items.length);
+        assertEquals(item, items[0]);
+        assertEquals("Item2", items[1]);
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            stringListImpl.set(2, "TestItem");
+        });
     }
 }

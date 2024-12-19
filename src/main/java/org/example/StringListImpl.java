@@ -25,7 +25,7 @@ public class StringListImpl implements StringList {
     @Override
     public String add(int index, String item) {
         if (index < 0 || index > size) {
-            throw new IndexOutOfBoundsException("Такого индекса массива не существует" + index);
+            throw new IndexOutOfBoundsException("Такого индекса массива не существует " + index);
         }
         if (size == items.length) {
             items = Arrays.copyOf(items, items.length * 2);
@@ -38,11 +38,22 @@ public class StringListImpl implements StringList {
 
     @Override
     public String set(int index, String item) {
-        return null;
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Такого индекса массива не существует " + index);
+        }
+        items[index] = item;
+        return item;
     }
 
     @Override
     public String remove(String item) {
+        for (int i = 0; i < items.length; i++) {
+            if (items[i].equals(item)) {
+
+            }
+
+        }
+
         return null;
     }
 
