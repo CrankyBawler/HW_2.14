@@ -2,8 +2,7 @@ import org.example.StringListImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class StringListImplTest {
     private StringListImpl stringListImpl;
@@ -72,5 +71,66 @@ public class StringListImplTest {
         assertThrows(IndexOutOfBoundsException.class, () -> {
             stringListImpl.set(2, "TestItem");
         });
+    }
+
+    @Test
+    public void remove() {
+        stringListImpl.add(0, "Item1");
+        stringListImpl.add(1, "Item2");
+        stringListImpl.add(2, "Item3");
+
+        String result = stringListImpl.remove("Item2");
+        assertEquals("Item2", result);
+
+        String[] items = stringListImpl.getItems();
+        assertEquals("Item1", items[0]);
+        assertEquals("Item3", items[1]);
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            stringListImpl.remove("Item4");
+        });
+    }
+
+    @Test
+    public void removeForIndex() {
+        stringListImpl.add(0, "Item1");
+        stringListImpl.add(1, "Item2");
+        stringListImpl.add(2, "Item3");
+
+        String result = stringListImpl.remove(1);
+        assertEquals("Item2", result);
+
+        String[] items = stringListImpl.getItems();
+        assertEquals("Item1", items[0]);
+        assertEquals("Item3", items[1]);
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            stringListImpl.remove(3);
+        });
+    }
+
+    @Test
+    public void contains() {
+        stringListImpl.add(0, "Item1");
+        stringListImpl.add(1, "Item2");
+        stringListImpl.add(2, "Item3");
+
+        assertTrue(stringListImpl.contains("Item1"));
+        assertTrue(stringListImpl.contains("Item2"));
+        assertTrue(stringListImpl.contains("Item3"));
+        assertFalse(stringListImpl.contains("Item4"));
+
+    }
+
+    @Test
+    public void indexOf() {
+        stringListImpl.add(0, "Item1");
+        stringListImpl.add(1, "Item2");
+        stringListImpl.add(2, "Item3");
+
+        assertEquals(0, stringListImpl.indexOf("Item1"));
+        assertEquals(1, stringListImpl.indexOf("Item2"));
+        assertEquals(2, stringListImpl.indexOf("Item3"));
+        assertEquals(-1, stringListImpl.indexOf("Item4"));
     }
 }

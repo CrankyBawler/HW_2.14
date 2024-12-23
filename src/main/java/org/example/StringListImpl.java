@@ -47,29 +47,59 @@ public class StringListImpl implements StringList {
 
     @Override
     public String remove(String item) {
-        for (int i = 0; i < items.length; i++) {
+        int index = -1;
+        for (int i = 0; i < size; i++) {
             if (items[i].equals(item)) {
-
+                index = i;
+                break;
             }
-
         }
-
-        return null;
+        if (index == -1) {
+            throw new IllegalArgumentException("Item не найден " + item);
+        }
+        String removerItem = items[index];
+        System.arraycopy(items, index + 1, items, index, size - index - 1);
+        items[--size] = null;
+        return removerItem;
     }
 
     @Override
     public String remove(int index) {
-        return null;
+        {
+            if (index < 0 || index > size) {
+
+
+                throw new IllegalArgumentException("Такого индекса массива не существует");
+            }
+            String removerItem = items[index];
+            System.arraycopy(items, index + 1, items, index, size - index - 1);
+            items[--size] = null;
+
+
+            return removerItem;
+        }
     }
+
 
     @Override
     public boolean contains(String item) {
+        for (int i = 0; i < size; i++) {
+            if (items[i].equals(item)) {
+                return true;
+            }
+        }
         return false;
     }
 
     @Override
     public int indexOf(String item) {
-        return 0;
+        for (int i = 0; i < size; i++) {
+            if (items[i].equals(item)) {
+                return i;
+            }
+
+        }
+        return -1;
     }
 
     @Override
@@ -114,4 +144,5 @@ public class StringListImpl implements StringList {
     public int getSize() {
         return size;
     }
+
 }
