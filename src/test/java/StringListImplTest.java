@@ -6,10 +6,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class StringListImplTest {
     private StringListImpl stringListImpl;
+    private StringListImpl stringListImpl1;
 
     @BeforeEach
     public void setUp() {
         stringListImpl = new StringListImpl();
+        stringListImpl1 = new StringListImpl();
     }
 
     @Test
@@ -133,4 +135,51 @@ public class StringListImplTest {
         assertEquals(2, stringListImpl.indexOf("Item3"));
         assertEquals(-1, stringListImpl.indexOf("Item4"));
     }
-}
+
+    @Test
+    public void lastIndexOf() {
+        stringListImpl.add(0, "Item1");
+        stringListImpl.add(1, "Item2");
+        stringListImpl.add(2, "Item3");
+
+        assertEquals(2, stringListImpl.lastIndexOf("Item3"));
+        assertEquals(1, stringListImpl.lastIndexOf("Item2"));
+        assertEquals(0, stringListImpl.lastIndexOf("Item1"));
+        assertEquals(-1, stringListImpl.lastIndexOf("Item4"));
+
+    }
+
+    @Test
+    public void get() {
+        stringListImpl.add(0, "Item1");
+        stringListImpl.add(1, "Item2");
+        stringListImpl.add(2, "Item3");
+
+        assertEquals("Item1", stringListImpl.get(0));
+        assertEquals("Item2", stringListImpl.get(1));
+        assertEquals("Item3", stringListImpl.get(2));
+        assertThrows(IllegalArgumentException.class, () -> {
+            stringListImpl.get(-1);
+        });
+        assertThrows(IllegalArgumentException.class, () -> {
+            stringListImpl.get(-3);
+
+        });
+    }
+
+    @Test
+    public void equals() {
+        stringListImpl.add(0, "Item1");
+        stringListImpl.add(1, "Item2");
+        stringListImpl.add(2, "Item3");
+
+        stringListImpl1.add(0, "Item1");
+        stringListImpl1.add(1, "Item2");
+        stringListImpl1.add(2, "Item3");
+
+        assertTrue(stringListImpl.equals(stringListImpl1));
+        assertTrue(stringListImpl1.equals(stringListImpl));
+
+    }
+    }
+

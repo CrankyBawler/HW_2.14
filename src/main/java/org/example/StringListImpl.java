@@ -1,6 +1,7 @@
 package org.example;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 public class StringListImpl implements StringList {
     private String[] items;
@@ -104,18 +105,28 @@ public class StringListImpl implements StringList {
 
     @Override
     public int lastIndexOf(String item) {
-        return 0;
+        for (int i = 0; i < size; i++) {
+            if (items[i].equals(item)) {
+                return i;
+            }
+
+        }
+        return -1;
     }
 
     @Override
     public String get(int index) {
-        return null;
+        if (index < 0 || index >= size) {
+            throw new IllegalArgumentException("Такого индекса не существует");
+        }
+        return items[index];
     }
 
     @Override
     public boolean equals(StringList otherList) {
-        return false;
+        return Arrays.equals(this.toArray(), otherList.toArray());
     }
+
 
     @Override
     public int size() {
@@ -145,4 +156,11 @@ public class StringListImpl implements StringList {
         return size;
     }
 
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(size);
+        result = 31 * result + Arrays.hashCode(items);
+        return result;
+    }
 }
