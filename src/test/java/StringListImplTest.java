@@ -10,8 +10,8 @@ public class StringListImplTest {
 
     @BeforeEach
     public void setUp() {
-        stringListImpl = new StringListImpl();
-        stringListImpl1 = new StringListImpl();
+        stringListImpl = new StringListImpl(5);
+        stringListImpl1 = new StringListImpl(5);
     }
 
     @Test
@@ -181,5 +181,50 @@ public class StringListImplTest {
         assertTrue(stringListImpl1.equals(stringListImpl));
 
     }
+
+    @Test
+
+    public void size() {
+        assertEquals(0, stringListImpl.size());
+
+        stringListImpl.add(0, "Item1");
+        stringListImpl.add(1, "Item2");
+        stringListImpl.add(2, "Item3");
+
+        assertEquals(3, stringListImpl.size());
+
     }
+
+    @Test
+    public void isEmpty() {
+        assertTrue(stringListImpl.isEmpty());
+
+        stringListImpl.add(0, "Item1");
+        assertFalse(stringListImpl.isEmpty());
+
+    }
+
+    @Test
+    public void clear() {
+        stringListImpl.add(0, "Item1");
+        stringListImpl.add(1, "Item2");
+        stringListImpl.add(2, "Item3");
+
+        stringListImpl.clear();
+
+        assertEquals(0, stringListImpl.size());
+    }
+
+    @Test
+    public void toArray() {
+        assertEquals(0, stringListImpl.size());
+        stringListImpl.add("Hello ");
+        assertArrayEquals(new String[] {"Hello "}, stringListImpl.toArray());
+        stringListImpl.add("World ");
+        assertArrayEquals(new String[]{"Hello ", "World "}, stringListImpl.toArray());
+        stringListImpl.add("!");
+        assertArrayEquals(new String[]{"Hello ", "World ", "!"}, stringListImpl.toArray());
+
+    }
+}
 

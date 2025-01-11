@@ -7,7 +7,7 @@ public class StringListImpl implements StringList {
     private String[] items;
     private int size;
 
-    public StringListImpl() {
+    public StringListImpl(int i) {
         this.items = new String[10];
         this.size = 0;
     }
@@ -130,22 +130,27 @@ public class StringListImpl implements StringList {
 
     @Override
     public int size() {
-        return 0;
+
+        return size;
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+
+        return size == 0;
     }
 
     @Override
     public void clear() {
+        size = 0;
 
     }
 
     @Override
     public String[] toArray() {
-        return new String[0];
+        String[] result = new String[size];
+        System.arraycopy(items, 0, result, 0, size);
+        return result;
     }
 
     public String[] getItems() {
